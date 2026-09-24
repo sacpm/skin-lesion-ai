@@ -1,0 +1,21 @@
+name: skin-lesion-nemo
+
+# Stage 8+ environment for NVIDIA NeMo AutoModel (VLM + LoRA/PEFT).
+# Kept separate from skin-lesion-ai because nemo-automodel pins its own
+# transformers version.
+#
+# torch is pinned to the CUDA 13.0 build (+cu130) so installing
+# nemo-automodel does not replace it with a different CUDA build.
+
+channels:
+  - defaults
+
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu130
+      - torch==2.14.0+cu130
+      - torchvision==0.29.0+cu130
+      - nemo-automodel[vlm,vlm-media]==0.6.0
+      - ipykernel

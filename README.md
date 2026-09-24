@@ -802,8 +802,34 @@ nvidia-smi
 python -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.is_available(), torch.cuda.get_device_name(0))"
 ```
 
-This table should be updated if PyTorch is upgraded or NeMo is
-installed, since NeMo may install its own PyTorch version.
+This table should be updated if PyTorch is upgraded.
+
+### Stage 8 Conda Environment
+
+Stage 8 uses a separate environment, `skin-lesion-nemo`, because NeMo
+AutoModel pins its own `transformers` version (5.12.1). Installing it
+into `skin-lesion-ai` would change the library the Stage 1–7 results
+were produced with.
+
+| Package | Version |
+|---|---|
+| Python | 3.11 |
+| PyTorch | 2.14.0+cu130 (same build as `skin-lesion-ai`) |
+| NeMo AutoModel | 0.6.0 (`vlm` and `vlm-media` extras) |
+| transformers | 5.12.1 |
+
+Create it with:
+
+```bash
+conda env create -f environment-nemo.yml
+conda activate skin-lesion-nemo
+python -m ipykernel install --user --name skin-lesion-nemo --display-name "Python (skin-lesion-nemo)"
+```
+
+`environment-nemo-lock.yml` records the exact package versions used.
+
+`pip check` reports that `decord` (video decoding) is unsupported on
+this platform. It is not used for still images and can be ignored.
 
 ---
 
