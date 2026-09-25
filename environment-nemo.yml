@@ -18,4 +18,6 @@ dependencies:
       - torch==2.14.0+cu130
       - torchvision==0.29.0+cu130
       - nemo-automodel[vlm,vlm-media]==0.6.0
+      # Required by the SmolVLM processor; not installed by nemo-automodel
+      - num2words==0.5.14
       - ipykernel
